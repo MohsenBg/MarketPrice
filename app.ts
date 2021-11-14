@@ -5,6 +5,8 @@ const express = require("express");
 const app: Application = express();
 const morgan = require("morgan");
 const Price = require("./route/api/CoinsName/Price/index");
+const Symbol = require("./route/api/CoinsName/Price/symbol");
+
 const CoinsName = require("./route/api/CoinsName/index");
 const connect_Mongo_db = require("./Connection/Connect");
 const cors = require("cors");
@@ -29,7 +31,11 @@ app.use("/", CoinsName);
 
 //!/api/:CoinName/Price
 app.use("/", Price);
-// app.use("/updatePrice", updatePrice);
+
+//!/api/:CoinName/Price/:Symbol
+app.use("/", Symbol);
+
+//!404page
 app.use((req, res) => {
   res.status(404).render("404");
 });

@@ -4,6 +4,7 @@ const CoinsModels: typeof Model = require("../../../modules/Coins/M_Coins");
 
 const router = Router();
 
+//!/api/:CoinsName
 router.get("/api/:CoinsName", async (req, res, next) => {
   //@ts-ignore
   const CoinsNameRoute = req.params.CoinsName;
