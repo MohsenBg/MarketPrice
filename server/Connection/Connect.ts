@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
-const { UpdatePrice } = require("../update/UpdatePrice");
+const { UpdatePrice } = require("../update/updatePrice");
 const port = 5000;
 const Cluster_Name = "cluster0";
 const dataBaseName = "node-tuts";
@@ -10,7 +10,7 @@ const connect_Mongo_db = async (app: any) => {
   await mongoose
     .connect(Url)
     .then(async () => {
-      await app.listen(port, () => {
+      await app.listen(process.env.PORT || port, () => {
         console.log(`app running on ${port}`);
       });
       console.log("server successfully Connect to MONGO_DB");
