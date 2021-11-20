@@ -5,7 +5,9 @@ import axios from "axios";
 import { BasicCoinsInfo } from "../../interface/I-coins";
 import { URL } from "../../URL";
 import Head from "next/head";
+import styles from "../../styles/CoinsName.module.scss";
 import Header from "../../components/CoinsName/Header";
+import PriceStatistics from "../../components/CoinsName/PriceStatistics";
 const Charts = dynamic(() => import("../../components/CoinsName/Charts"), {
   ssr: false,
 });
@@ -19,7 +21,7 @@ const CoinsName: NextPage<props> = ({ coinInfo }) => {
     console.log(coinInfo);
   }, []);
   return (
-    <div>
+    <div className={styles.CoinsNamePageContainer}>
       <div>
         <Head>
           <title>{coinInfo.coinName}</title>
@@ -30,11 +32,18 @@ const CoinsName: NextPage<props> = ({ coinInfo }) => {
           <link rel="icon" href={coinInfo.image} />
         </Head>
       </div>
-      <div>
-        <Header coin={coinInfo} />
-      </div>
-      <div>
-        <Charts coin={coinInfo} />
+      <div className={styles.mainContainer}>
+        <div>
+          <Header coin={coinInfo} />
+        </div>
+        <div className={styles.inline}>
+          <div className={styles.componentCharts}>
+            <Charts coin={coinInfo} />
+          </div>
+          <div className={styles.componentPriceStatistics}>
+            <PriceStatistics coin={coinInfo} />
+          </div>
+        </div>
       </div>
     </div>
   );

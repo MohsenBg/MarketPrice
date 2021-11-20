@@ -1,0 +1,16 @@
+.CoinsNamePageContainer {
+  .mainContainer {
+    .inline {
+      @media (width >1149px) {
+        display: flex;
+        .componentCharts {
+          flex-basis: 65%;
+        }
+        .componentPriceStatistics {
+          margin-top: 8em;
+          flex-basis: 35%;
+        }
+      }
+    }
+  }
+}

@@ -10,6 +10,8 @@ import axios from "axios";
 import Select from "react-select";
 import { URL } from "../../URL";
 import { AiFillCaretUp, AiOutlineCaretDown } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { ActionTypeCoinsData } from "../../redux/CoinsData/ActionType";
 interface props {
   coin: BasicCoinsInfo;
 }
@@ -73,13 +75,14 @@ const Header: FunctionComponent<props> = ({ coin }) => {
   const [coinsInfo, setCoinsInfo] = useState<CoinsInfo>();
   const [options, setOptions] = useState<any>();
   const [selectedInput, setSelectedInput] = useState<any>();
+  const dispatch = useDispatch();
   const fetcher = async () => {
     await axios
       .get(`${URL}/api/${coin.coinName}/Price`)
       .then(async (res) => {
         const newData: CoinsInfo = await res.data;
         setCoinsInfo(newData);
-
+        dispatch({ type: ActionTypeCoinsData.COIN_DATA, payload: newData });
         //@ts-ignore
         optionsHandler(newData);
       })
@@ -115,6 +118,7 @@ const Header: FunctionComponent<props> = ({ coin }) => {
 
   const handelOnChange = (value: any) => {
     setSelectedInput(value);
+    dispatch({ type: ActionTypeCoinsData.INPUT_VALUE, payload: value });
   };
   console.log(selectedInput);
 
@@ -141,7 +145,9 @@ const Header: FunctionComponent<props> = ({ coin }) => {
                     if (item.symbol === selectedInput.value) {
                       return (
                         <div key={item.symbol} className={styles.lastPrice}>
-                          {parseFloat(item.lastPrice).toLocaleString()}
+                          {parseFloat(item.lastPrice) > 1
+                            ? parseFloat(item.lastPrice).toLocaleString()
+                            : parseFloat(item.lastPrice)}
                         </div>
                       );
                     }
@@ -196,10 +202,10 @@ const Header: FunctionComponent<props> = ({ coin }) => {
                           )
                         }
                         <span>
-                          {
+                          {Math.abs(
                             //@ts-ignore
                             parseFloat(item.priceChangePercent).toFixed(2)
-                          }
+                          )}
                           %
                         </span>
                       </div>
@@ -216,13 +222,17 @@ const Header: FunctionComponent<props> = ({ coin }) => {
                       <div className={styles.parameterContainer}>
                         <span className={styles.parameterName}>Low:</span>
                         <span className={styles.parameter}>
-                          {parseFloat(item.lowPrice).toLocaleString()}
+                          {parseFloat(item.lowPrice) > 1
+                            ? parseFloat(item.lowPrice).toLocaleString()
+                            : parseFloat(item.lowPrice)}
                         </span>
                       </div>
                       <div className={styles.parameterContainer}>
                         <span className={styles.parameterName}>High:</span>
                         <span className={styles.parameter}>
-                          {parseFloat(item.highPrice).toLocaleString()}
+                          {parseFloat(item.highPrice) > 1
+                            ? parseFloat(item.highPrice).toLocaleString()
+                            : parseFloat(item.highPrice)}
                         </span>
                       </div>
                       <div className={styles.option}>24h</div>
