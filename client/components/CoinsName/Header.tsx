@@ -95,17 +95,16 @@ const Header: FunctionComponent<props> = ({ coin }) => {
         label: item.symbol.replace(`${data.symbol}`, ""),
       };
     });
-
-    if (typeof selectedInput === "undefined") {
-      if (data.symbol === "USDT") {
-        handelOnChange({ value: "USDTBUSD", label: "BUSD" });
-      } else {
-        handelOnChange({ value: `${data.symbol}BUSD`, label: "USDT" });
-      }
-    }
-
     setOptions(symbols);
   };
+
+  useEffect(() => {
+    if (coin.symbol === "USDT") {
+      handelOnChange({ value: "USDTBUSD", label: "BUSD" });
+    } else {
+      handelOnChange({ value: `${coin.symbol}BUSD`, label: "USDT" });
+    }
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(async () => {
@@ -117,6 +116,7 @@ const Header: FunctionComponent<props> = ({ coin }) => {
   const handelOnChange = (value: any) => {
     setSelectedInput(value);
   };
+  console.log(selectedInput);
 
   return (
     <div className={styles.headerContainer}>

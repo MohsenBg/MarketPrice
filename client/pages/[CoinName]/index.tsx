@@ -1,10 +1,15 @@
 import React, { useEffect } from "react";
+import dynamic from "next/dynamic";
 import { GetServerSideProps, NextPage } from "next";
 import axios from "axios";
 import { BasicCoinsInfo } from "../../interface/I-coins";
 import { URL } from "../../URL";
 import Head from "next/head";
 import Header from "../../components/CoinsName/Header";
+const Charts = dynamic(() => import("../../components/CoinsName/Charts"), {
+  ssr: false,
+});
+
 interface props {
   coinInfo: BasicCoinsInfo;
 }
@@ -27,6 +32,9 @@ const CoinsName: NextPage<props> = ({ coinInfo }) => {
       </div>
       <div>
         <Header coin={coinInfo} />
+      </div>
+      <div>
+        <Charts coin={coinInfo} />
       </div>
     </div>
   );
