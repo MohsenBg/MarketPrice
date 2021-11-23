@@ -16,7 +16,7 @@ interface props {
   getPageNumber: any;
 }
 
-const PageCounter: FunctionComponent<props> = ({
+const PageCounters: FunctionComponent<props> = ({
   countOfCoin,
   getPageNumber,
 }) => {
@@ -126,4 +126,4 @@ const PageCounter: FunctionComponent<props> = ({
   );
 };
 
-export default PageCounter;
+export default PageCounters;

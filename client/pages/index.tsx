@@ -1,13 +1,13 @@
 import axios from "axios";
 import type { NextPage } from "next";
 import Head from "next/head";
-import PageCounter from "../components/Home/PageCounter";
 import { useEffect, useState } from "react";
 import CardPrice from "../components/Home/CardPrice";
 import { CoinsInfo } from "../interface/I-coins";
 import styles from "../styles/Home.module.scss";
 import { useDispatch } from "react-redux";
 import { ActionTypeLoading } from "../redux/Loading/ActionType";
+import PageCounters from "../components/Home/PageCounters";
 
 const tabs = ["USDT", "BUSD"];
 const Home: NextPage = () => {
@@ -110,7 +110,7 @@ const Home: NextPage = () => {
               </div>
             </div>
             <div className={styles.pageCounterComponent}>
-              <PageCounter
+              <PageCounters
                 countOfCoin={coinsInfo.length}
                 getPageNumber={handelCountRenderCoin}
               />
