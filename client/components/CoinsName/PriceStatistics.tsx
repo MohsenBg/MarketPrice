@@ -138,6 +138,25 @@ const PriceStatistics: FunctionComponent<props> = () => {
                     <span className={styles.parameterName}>Trading Volume</span>
                     <div className={styles.parameter}>
                       <span>
+                        {parseFloat(item.volume) > 1
+                          ? parseFloat(item.volume).toLocaleString()
+                          : parseFloat(item.volume)}
+                        <span className={styles.unit}>
+                          {selectedInputValue.label}
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                );
+              }
+            })}
+            {coinInfo.price.map((item) => {
+              if (item.symbol === selectedInputValue.value) {
+                return (
+                  <div className={styles.row} key={item.symbol}>
+                    <span className={styles.parameterName}>Quote Volume</span>
+                    <div className={styles.parameter}>
+                      <span>
                         {parseFloat(item.quoteVolume) > 1
                           ? parseFloat(item.quoteVolume).toLocaleString()
                           : parseFloat(item.quoteVolume)}

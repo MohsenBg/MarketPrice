@@ -4,7 +4,7 @@ import {
   CoinsInfo,
   PriceFormat,
 } from "../../interface/I-coins";
-import styles from "./Header.module.scss";
+import styles from "./CN_Header.module.scss";
 import Image from "next/image";
 import axios from "axios";
 import Select from "react-select";
@@ -12,6 +12,7 @@ import { URL } from "../../URL";
 import { AiFillCaretUp, AiOutlineCaretDown } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { ActionTypeCoinsData } from "../../redux/CoinsData/ActionType";
+import { ActionTypeLoading } from "../../redux/Loading/ActionType";
 interface props {
   coin: BasicCoinsInfo;
 }
@@ -75,7 +76,10 @@ const Header: FunctionComponent<props> = ({ coin }) => {
   const [coinsInfo, setCoinsInfo] = useState<CoinsInfo>();
   const [options, setOptions] = useState<any>();
   const [selectedInput, setSelectedInput] = useState<any>();
+  const [onLoad, setOnLoad] = useState(true);
+
   const dispatch = useDispatch();
+
   const fetcher = async () => {
     await axios
       .get(`${URL}/api/${coin.coinName}/Price`)
@@ -87,6 +91,7 @@ const Header: FunctionComponent<props> = ({ coin }) => {
         optionsHandler(newData);
       })
       .catch((error) => {
+        // dispatch({ type: ActionTypeLoading.END_LOADING });
         console.log(error);
       });
   };
@@ -116,11 +121,19 @@ const Header: FunctionComponent<props> = ({ coin }) => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    if (typeof coinsInfo !== "undefined" && onLoad) {
+      setTimeout(() => {
+        dispatch({ type: ActionTypeLoading.END_LOADING });
+        setOnLoad(false);
+      }, 2000);
+    }
+  }, [coinsInfo]);
+
   const handelOnChange = (value: any) => {
     setSelectedInput(value);
     dispatch({ type: ActionTypeCoinsData.INPUT_VALUE, payload: value });
   };
-  console.log(selectedInput);
 
   return (
     <div className={styles.headerContainer}>

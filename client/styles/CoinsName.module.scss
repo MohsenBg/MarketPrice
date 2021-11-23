@@ -1,5 +1,16 @@
 .CoinsNamePageContainer {
   .mainContainer {
+    .iconBack {
+      position: absolute;
+      top: 12px;
+      left: 20px;
+      font-size: 40px;
+      &:hover {
+        cursor: pointer;
+        color: aquamarine;
+      }
+    }
+
     .inline {
       @media (width >1149px) {
         display: flex;
@@ -7,7 +18,7 @@
           flex-basis: 65%;
         }
         .componentPriceStatistics {
-          margin-top: 8em;
+          margin-top: 6em;
           flex-basis: 35%;
         }
       }
