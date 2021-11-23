@@ -13,12 +13,13 @@ const [fullScreenChart, setFullScreenChart] = useState(false)
   return (
       <>
       {typeof selectedInputValue.label !== "undefined" ?
-    <div className={styles.chartsContainer}>
+    <div className={styles.chartsContainer}
+    style={fullScreenChart ? {padding:"0px"} :{}}
+    >
       <h2>
         {coin.coinName} to {selectedInputValue.label} Chart
       </h2>
       <div className={fullScreenChart ? styles.fullScreenButton: styles.normalScreenButton}
-     
       >
         <div
          onClick={()=>setFullScreenChart(!fullScreenChart)}
