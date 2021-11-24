@@ -10,8 +10,6 @@ import { BiArrowBack } from "react-icons/bi";
 import styles from "../../styles/CoinsName.module.scss";
 import Header from "../../components/CoinsName/CN_Header";
 import PriceStatistics from "../../components/CoinsName/PriceStatistics";
-import { useDispatch } from "react-redux";
-import { ActionTypeLoading } from "../../redux/Loading/ActionType";
 const Charts = dynamic(() => import("../../components/CoinsName/Charts"), {
   ssr: false,
 });
@@ -21,11 +19,6 @@ interface props {
 }
 
 const CoinsName: NextPage<props> = ({ coinInfo }) => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch({ type: ActionTypeLoading.ON_LOADING });
-  }, []);
-
   return (
     <div className={styles.CoinsNamePageContainer}>
       <div>

@@ -1,5 +1,4 @@
-import { FunctionComponent } from "hoist-non-react-statics/node_modules/@types/react";
-import React from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { AiFillCaretUp, AiOutlineCaretDown } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { BasicCoinsInfo, CoinsInfo } from "../../interface/I-coins";
@@ -12,31 +11,43 @@ interface SelectedInputValue {
   value: string;
   label: string;
 }
-const PriceStatistics: FunctionComponent<props> = () => {
-  //@ts-ignore
+const PriceStatistics: FunctionComponent<props> = ({ coin }) => {
+  const [coinInfo, setCoinInfo] = useState<CoinsInfo>();
+
+  const coinsData: Array<CoinsInfo> = useSelector(
+    //@ts-ignore
+    (state: typeof initialState) => state.Coins.coinsInfo
+  );
+  useEffect(() => {
+    if (coinsData.length > 0) {
+      const coinSelected = coinsData.filter(
+        (Coin) => Coin.coinName === coin.coinName
+      );
+      setCoinInfo(coinSelected[0]);
+    }
+  }, [coinsData]);
+
   const selectedInputValue: SelectedInputValue = useSelector(
     //@ts-ignore
     (state: typeof initialState) => state.Coins.value
   );
-  //@ts-ignore
-  const coinInfo: CoinsInfo = useSelector(
-    //@ts-ignore
-    (state: typeof initialState) => state.Coins.coinInfo
-  );
+
   return (
     <div className={styles.PriceStatisticsContainer}>
-      {typeof coinInfo.coinName !== "undefined" &&
+      {typeof coinInfo?.coinName !== "undefined" &&
       typeof selectedInputValue.value !== "undefined" ? (
         <>
-          <h1 className={styles.title}>{coinInfo.coinName} Price Statistics</h1>
-          <span className={styles.span}>{coinInfo.coinName} Price Today</span>
+          <h1 className={styles.title}>
+            {coinInfo?.coinName} Price Statistics
+          </h1>
+          <span className={styles.span}>{coinInfo?.coinName} Price Today</span>
           <div className={styles.InfoContainer}>
-            {coinInfo.price.map((item) => {
+            {coinInfo?.price.map((item) => {
               if (item.symbol === selectedInputValue.value) {
                 return (
                   <div className={styles.row} key={item.symbol}>
                     <span className={styles.parameterName}>
-                      {coinInfo.coinName} Price
+                      {coinInfo?.coinName} Price
                     </span>
                     <div className={styles.parameter}>
                       <span>
@@ -52,7 +63,7 @@ const PriceStatistics: FunctionComponent<props> = () => {
                 );
               }
             })}
-            {coinInfo.price.map((item) => {
+            {coinInfo?.price.map((item) => {
               if (item.symbol === selectedInputValue.value) {
                 return (
                   <div className={styles.row} key={item.symbol}>

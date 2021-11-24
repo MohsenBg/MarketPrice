@@ -6,7 +6,7 @@ interface getValue {
   payload: object;
 }
 interface getCoinData {
-  type: ActionType.COIN_DATA;
+  type: ActionType.COINS_DATA;
   payload: CoinsInfo;
 }
 export type ActionsCoinsData = getValue | getCoinData;

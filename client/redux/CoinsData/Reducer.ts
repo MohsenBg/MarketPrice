@@ -3,7 +3,7 @@ import { ActionTypeCoinsData as ActionType } from "./ActionType";
 
 const initialState = {
   value: {},
-  coinInfo: {},
+  coinsInfo: [],
 };
 
 export const ReducerCoinData = (state = initialState, actions: Actions) => {
@@ -11,8 +11,8 @@ export const ReducerCoinData = (state = initialState, actions: Actions) => {
     case ActionType.INPUT_VALUE:
       return { ...state, value: actions.payload };
 
-    case ActionType.COIN_DATA:
-      return { ...state, coinInfo: actions.payload };
+    case ActionType.COINS_DATA:
+      return { ...state, coinsInfo: actions.payload };
     default:
       return state;
   }

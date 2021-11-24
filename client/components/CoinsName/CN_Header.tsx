@@ -1,18 +1,12 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import {
-  BasicCoinsInfo,
-  CoinsInfo,
-  PriceFormat,
-} from "../../interface/I-coins";
+import { BasicCoinsInfo, CoinsInfo } from "../../interface/I-coins";
 import styles from "./CN_Header.module.scss";
 import Image from "next/image";
-import axios from "axios";
 import Select from "react-select";
-import { URL } from "../../URL";
 import { AiFillCaretUp, AiOutlineCaretDown } from "react-icons/ai";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ActionTypeCoinsData } from "../../redux/CoinsData/ActionType";
-import { ActionTypeLoading } from "../../redux/Loading/ActionType";
+import { initialState } from "../../redux/store";
 interface props {
   coin: BasicCoinsInfo;
 }
@@ -77,24 +71,21 @@ const Header: FunctionComponent<props> = ({ coin }) => {
   const [options, setOptions] = useState<any>();
   const [selectedInput, setSelectedInput] = useState<any>();
   const [onLoad, setOnLoad] = useState(true);
-
   const dispatch = useDispatch();
 
-  const fetcher = async () => {
-    await axios
-      .get(`${URL}/api/${coin.coinName}/Price`)
-      .then(async (res) => {
-        const newData: CoinsInfo = await res.data;
-        setCoinsInfo(newData);
-        dispatch({ type: ActionTypeCoinsData.COIN_DATA, payload: newData });
-        //@ts-ignore
-        optionsHandler(newData);
-      })
-      .catch((error) => {
-        // dispatch({ type: ActionTypeLoading.END_LOADING });
-        console.log(error);
-      });
-  };
+  const coinsData: Array<CoinsInfo> = useSelector(
+    //@ts-ignore
+    (state: typeof initialState) => state.Coins.coinsInfo
+  );
+  useEffect(() => {
+    if (coinsData.length > 0) {
+      const coinSelected = coinsData.filter(
+        (Coin) => Coin.coinName === coin.coinName
+      );
+      setCoinsInfo(coinSelected[0]);
+      optionsHandler(coinSelected[0]);
+    }
+  }, [coinsData]);
 
   const optionsHandler = (data: CoinsInfo) => {
     const symbols = data.price.map((item) => {
@@ -113,22 +104,6 @@ const Header: FunctionComponent<props> = ({ coin }) => {
       handelOnChange({ value: `${coin.symbol}BUSD`, label: "USDT" });
     }
   }, []);
-
-  useEffect(() => {
-    const interval = setInterval(async () => {
-      fetcher();
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    if (typeof coinsInfo !== "undefined" && onLoad) {
-      setTimeout(() => {
-        dispatch({ type: ActionTypeLoading.END_LOADING });
-        setOnLoad(false);
-      }, 2000);
-    }
-  }, [coinsInfo]);
 
   const handelOnChange = (value: any) => {
     setSelectedInput(value);
