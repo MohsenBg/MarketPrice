@@ -75,7 +75,7 @@ const Header: FunctionComponent<props> = ({ coin }) => {
 
   const coinsData: Array<CoinsInfo> = useSelector(
     //@ts-ignore
-    (state: typeof initialState) => state.Coins.coinsInfo
+    (state: initialState) => state.Coins.coinsInfo
   );
   useEffect(() => {
     if (coinsData.length > 0) {

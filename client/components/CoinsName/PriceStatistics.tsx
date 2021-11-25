@@ -16,7 +16,7 @@ const PriceStatistics: FunctionComponent<props> = ({ coin }) => {
 
   const coinsData: Array<CoinsInfo> = useSelector(
     //@ts-ignore
-    (state: typeof initialState) => state.Coins.coinsInfo
+    (state: initialState) => state.Coins.coinsInfo
   );
   useEffect(() => {
     if (coinsData.length > 0) {
@@ -29,7 +29,7 @@ const PriceStatistics: FunctionComponent<props> = ({ coin }) => {
 
   const selectedInputValue: SelectedInputValue = useSelector(
     //@ts-ignore
-    (state: typeof initialState) => state.Coins.value
+    (state: initialState) => state.Coins.value
   );
 
   return (

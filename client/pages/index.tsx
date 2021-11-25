@@ -15,7 +15,7 @@ const Home: NextPage = () => {
   const [countRenderCoin, setCountRenderCoin] = useState(1);
   const coinsInfo: Array<CoinsInfo> = useSelector(
     //@ts-ignore
-    (state: typeof initialState) => state.Coins.coinsInfo
+    (state: initialState) => state.Coins.coinsInfo
   );
 
   const handelCountRenderCoin = (page: number) => [setCountRenderCoin(page)];

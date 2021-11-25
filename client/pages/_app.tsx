@@ -1,14 +1,14 @@
 import "../styles/globals.scss";
 import type { AppProps } from "next/app";
 import NavBar from "../components/NavBar/NavBar";
-import { Provider } from "react-redux";
-import { store } from "../redux/store";
+import { wrapper } from "../redux/store";
 import Loading from "../components/Loading/Loading";
 import Dispatcher from "../components/Dispatcher/Dispatcher";
+import { ConnectedRouter } from "connected-next-router";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Provider store={store}>
+    <ConnectedRouter>
       <div>
         <Dispatcher />
         <div>
@@ -19,8 +19,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         </div>
         <Component {...pageProps} />
       </div>
-    </Provider>
+    </ConnectedRouter>
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

@@ -53,7 +53,6 @@ const PageCounters: FunctionComponent<props> = ({
       after,
     });
   };
-  console.log(counter);
 
   const handelSelectPage = (page: number) => {
     setSelectedPage(page);
