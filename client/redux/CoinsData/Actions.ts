@@ -5,8 +5,13 @@ interface getValue {
   type: ActionType.INPUT_VALUE;
   payload: object;
 }
+
+interface searchValue {
+  type: ActionType.SEARCH;
+  payload: object;
+}
 interface getCoinData {
   type: ActionType.COINS_DATA;
   payload: CoinsInfo;
 }
-export type ActionsCoinsData = getValue | getCoinData;
+export type ActionsCoinsData = getValue | getCoinData | searchValue;

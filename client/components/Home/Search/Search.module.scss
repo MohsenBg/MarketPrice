@@ -1,0 +1,39 @@
+.searchContainer {
+  margin: 2em 0;
+  width: 100%;
+  @media (width < 550px) {
+    height: 30px;
+  }
+  position: relative;
+  .inputSearch {
+    right: 0;
+    position: absolute;
+    min-width: 250px;
+    height: 35px;
+    box-shadow: 0.5px 0.5px 10px rgb(0, 0, 0);
+    border-radius: 8px;
+    background-color: rgb(46, 48, 48);
+    color: white;
+    display: flex;
+    padding: 2px 15px;
+    align-items: center;
+    font-size: 17px;
+    border: none;
+    &::placeholder {
+      font-size: 14px;
+      color: rgb(156, 151, 151);
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+  .iconSearch {
+    z-index: 2;
+    color: rgba(199, 199, 199, 0.911);
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    margin-left: 10px;
+    font-size: 20px;
+  }
+}

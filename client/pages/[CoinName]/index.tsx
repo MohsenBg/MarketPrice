@@ -8,11 +8,14 @@ import { URL } from "../../URL";
 import Head from "next/head";
 import { BiArrowBack } from "react-icons/bi";
 import styles from "../../styles/CoinsName.module.scss";
-import Header from "../../components/CoinsName/CN_Header";
-import PriceStatistics from "../../components/CoinsName/PriceStatistics";
-const Charts = dynamic(() => import("../../components/CoinsName/Charts"), {
-  ssr: false,
-});
+import Header from "../../components/CoinsName/CN_Header/CN_Header";
+import PriceStatistics from "../../components/CoinsName/PriceStatistics/PriceStatistics";
+const Charts = dynamic(
+  () => import("../../components/CoinsName/Chart/Charts"),
+  {
+    ssr: false,
+  }
+);
 
 interface props {
   coinInfo: BasicCoinsInfo;

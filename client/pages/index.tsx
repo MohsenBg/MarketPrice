@@ -1,24 +1,30 @@
 import axios from "axios";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useState } from "react";
-import CardPrice from "../components/Home/CardPrice";
+import { useState, useEffect } from "react";
+import CardPrice from "../components/Home/CardPrice/CardPrice";
 import { CoinsInfo } from "../interface/I-coins";
 import styles from "../styles/Home.module.scss";
 import { useSelector } from "react-redux";
 
-import PageCounters from "../components/Home/PageCounters";
+import PageCounters from "../components/Home/PageCounter/PageCounters";
 import { initialState } from "../redux/store";
-const tabs = ["USDT", "BUSD"];
+import Search from "../components/Home/Search/Search";
+
 const Home: NextPage = () => {
-  const [symbol, setSymbol] = useState("USDT");
   const [countRenderCoin, setCountRenderCoin] = useState(1);
   const coinsInfo: Array<CoinsInfo> = useSelector(
-    //@ts-ignore
     (state: initialState) => state.Coins.coinsInfo
   );
+  const search = useSelector((state: initialState) => state.Coins.searchValue);
 
   const handelCountRenderCoin = (page: number) => [setCountRenderCoin(page)];
+
+  useEffect(() => {
+    if (search.active) {
+      setCountRenderCoin(1);
+    }
+  }, [search.active]);
 
   return (
     <div className={styles.container}>
@@ -30,44 +36,16 @@ const Home: NextPage = () => {
       <main className={styles.main}>
         {coinsInfo.length > 0 ? (
           <>
-            <h1 className={styles.title}></h1>
-            <div className={styles.tabContainer}>
-              {tabs.map((tab) => {
-                return (
-                  <div className={styles.tab} key={tab}>
-                    <span
-                      style={tab === symbol ? { color: "white" } : {}}
-                      onClick={() => setSymbol(tab)}
-                    >
-                      {tab}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
             <div>
-              <div className={styles.firstRow}>
-                <div className={styles.firstColum}>Name</div>
-                <div className={styles.secondColum}>
-                  Price
-                  <span className={styles.unit}>{symbol}</span>
-                </div>
-                <div className={styles.thirdColum}>
-                  PriceChange
-                  <span className={styles.unit}>24h</span>
-                </div>
-                <div className={styles.fourthColum}>
-                  Low <span className={styles.unit}>24h</span>
-                  <span>/</span>
-                  high <span className={styles.unit}>24h</span>
-                </div>
-              </div>
+              <Search />
+            </div>
+
+            <div>
               <div>
                 <div className={styles.cardsPrice}>
                   <CardPrice
                     //@ts-ignore
-                    coins={coinsInfo}
-                    baseAsset={symbol}
+                    coins={search.active ? search.filter : coinsInfo}
                     pageNumber={countRenderCoin}
                   />
                 </div>
@@ -75,7 +53,9 @@ const Home: NextPage = () => {
             </div>
             <div className={styles.pageCounterComponent}>
               <PageCounters
-                countOfCoin={coinsInfo.length}
+                countOfCoin={
+                  search.active ? search.filter.length : coinsInfo.length
+                }
                 getPageNumber={handelCountRenderCoin}
               />
             </div>

@@ -1,4 +1,6 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { initialState } from "../../../redux/store";
 import styles from "./PageCounter.module.scss";
 interface Count {
   id: number;
@@ -22,9 +24,18 @@ const PageCounters: FunctionComponent<props> = ({
 }) => {
   const [counter, setCounter] = useState<Counter>();
   const [selectedPage, setSelectedPage] = useState<any>(1);
+  const search = useSelector((state: initialState) => state.Coins.searchValue);
+
+  useEffect(() => {
+    if (search.active) {
+      setSelectedPage(1);
+    }
+  }, [search.active]);
+
   useEffect(() => {
     countPages();
-  }, [selectedPage]);
+  }, [selectedPage, countOfCoin]);
+
   const countPages = () => {
     let newCounter = [];
     let countOfPage = Math.ceil(countOfCoin / 10);
@@ -46,7 +57,9 @@ const PageCounters: FunctionComponent<props> = ({
     );
     selected = selected.filter((item) => item.page !== 1);
     selected = selected.filter((item) => item.page !== newCounter.length);
-    let after = newCounter.filter((item) => item.page === newCounter.length);
+    let after = newCounter.filter(
+      (item) => item.page === newCounter.length && item.page !== 1
+    );
     setCounter({
       before,
       selected,

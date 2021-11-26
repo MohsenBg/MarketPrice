@@ -1,29 +1,67 @@
 import React, { useEffect, FunctionComponent, useState } from "react";
-import { CoinsInfo } from "../../interface/I-coins";
+import { CoinsInfo } from "../../../interface/I-coins";
 import styles from "./CardPrice.module.scss";
 import Image from "next/image";
 import Link from "next/link";
-
 import { AiFillCaretUp, AiOutlineCaretDown } from "react-icons/ai";
 interface props {
   coins: Array<CoinsInfo>;
-  baseAsset: string;
+
   pageNumber: number;
 }
-const CardPrice: FunctionComponent<props> = ({
-  coins,
-  baseAsset,
-  pageNumber,
-}) => {
+
+const CardPrice: FunctionComponent<props> = ({ coins, pageNumber }) => {
+  const tabs = ["USDT", "BUSD"];
+  const [baseAsset, setBaseAsset] = useState("USDT");
+
   return (
-    <>
+    <div className={styles.container}>
+      <h1 className={styles.title}></h1>
+      <div className={styles.tabContainer}>
+        {tabs.map((tab) => {
+          return (
+            <div className={styles.tab} key={tab}>
+              <span
+                style={tab === baseAsset ? { color: "white" } : {}}
+                onClick={() => setBaseAsset(tab)}
+              >
+                {tab}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className={styles.firstRow}>
+        <div className={styles.firstColum}>Name</div>
+        <div className={styles.secondColum}>
+          Price
+          <span className={styles.unit}>{baseAsset}</span>
+        </div>
+        <div className={styles.thirdColum}>
+          PriceChange
+          <span className={styles.unit}>24h</span>
+        </div>
+        <div className={styles.fourthColum}>
+          Low <span className={styles.unit}>24h</span>
+          <span>/</span>
+          high <span className={styles.unit}>24h</span>
+        </div>
+      </div>
+
       {coins.slice((pageNumber - 1) * 10, pageNumber * 10).map((coin) => {
         return (
           <Link href={`/${coin.coinName}`} key={coin.symbol}>
             <div className={styles.CardPriceContainer}>
               <div className={styles.firstColum}>
                 <div className={styles.image}>
-                  <Image src={coin.image} width="50px" height="50px" />
+                  <Image
+                    src={coin.image}
+                    width="50px"
+                    alt={`${coin.coinName} icon`}
+                    height="50px"
+                    loading="eager"
+                  />
                 </div>
                 <div className={styles.inline}>
                   <div className={styles.coinName}>{coin.coinName}</div>
@@ -144,7 +182,7 @@ const CardPrice: FunctionComponent<props> = ({
           </Link>
         );
       })}
-    </>
+    </div>
   );
 };
 

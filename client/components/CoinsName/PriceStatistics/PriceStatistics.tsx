@@ -1,8 +1,8 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { AiFillCaretUp, AiOutlineCaretDown } from "react-icons/ai";
 import { useSelector } from "react-redux";
-import { BasicCoinsInfo, CoinsInfo } from "../../interface/I-coins";
-import { initialState } from "../../redux/store";
+import { BasicCoinsInfo, CoinsInfo } from "../../../interface/I-coins";
+import { initialState } from "../../../redux/store";
 import styles from "./PriceStatistics.module.scss";
 interface props {
   coin: BasicCoinsInfo;

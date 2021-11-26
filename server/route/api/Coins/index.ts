@@ -7,18 +7,12 @@ const router = Router();
 //!/api/Coins
 router.get("/api/Coins", async (req, res, next) => {
   //@ts-ignore
-  const result = await CoinsModels.find();
+  const result = await CoinsModels.find({}).lean();
+
   if (result.length === 0) {
     next();
   } else {
-    const newResult = result.map((coinInfo) => {
-      return {
-        coinName: coinInfo.coinName,
-        symbol: coinInfo.symbol,
-        image: coinInfo.image,
-      };
-    });
-    res.send(newResult);
+    res.send(result);
   }
 });
 

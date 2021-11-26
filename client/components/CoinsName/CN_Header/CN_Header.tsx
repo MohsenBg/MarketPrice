@@ -1,12 +1,12 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { BasicCoinsInfo, CoinsInfo } from "../../interface/I-coins";
+import { BasicCoinsInfo, CoinsInfo } from "../../../interface/I-coins";
 import styles from "./CN_Header.module.scss";
 import Image from "next/image";
 import Select from "react-select";
 import { AiFillCaretUp, AiOutlineCaretDown } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { ActionTypeCoinsData } from "../../redux/CoinsData/ActionType";
-import { initialState } from "../../redux/store";
+import { ActionTypeCoinsData } from "../../../redux/CoinsData/ActionType";
+import { initialState } from "../../../redux/store";
 interface props {
   coin: BasicCoinsInfo;
 }
@@ -121,7 +121,13 @@ const Header: FunctionComponent<props> = ({ coin }) => {
               <div className={styles.left}>
                 <div className={styles.inline}>
                   <div className={styles.imageContainer}>
-                    <Image src={coinsInfo.image} width="50px" height="50px" />
+                    <Image
+                      src={coinsInfo.image}
+                      width="50px"
+                      height="50px"
+                      loading="eager"
+                      alt={`${coin.coinName} icon`}
+                    />
                   </div>
                   <div className={styles.coinName}>
                     {coinsInfo.coinName}

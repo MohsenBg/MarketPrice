@@ -8,6 +8,7 @@ import { HYDRATE, createWrapper } from "next-redux-wrapper";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import Router from "next/router";
+import { CoinsInfo } from "../interface/I-coins";
 
 const reducer = (state: any, action: any) => {
   if (action.type === HYDRATE) {
@@ -45,6 +46,10 @@ export interface initialState {
   Coins: {
     value: any;
     coinsInfo: Array<any>;
+    searchValue: {
+      active: boolean;
+      filter: Array<CoinsInfo>;
+    };
   };
   loading: {
     loading: boolean;

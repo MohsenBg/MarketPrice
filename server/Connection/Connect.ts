@@ -14,7 +14,7 @@ const connect_Mongo_db = async (app: any) => {
         console.log(`app running on ${port}`);
       });
       console.log("server successfully Connect to MONGO_DB");
-      await UpdatePrice();
+      //await UpdatePrice();
     })
     .catch((error: any) => {
       console.log("server has problems Connect to MONGO_DB");
