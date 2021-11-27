@@ -25,13 +25,14 @@ const Dispatcher: FunctionComponent = () => {
         const data: Array<CoinsInfo> = await res.data;
         //@ts-ignore
         dispatch({ type: ActionTypeCoinsData.COINS_DATA, payload: data });
-
-        setTimeout(() => {
-          dispatch({ type: ActionTypeLoading.END_LOADING });
-        }, 3000);
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          dispatch({ type: ActionTypeLoading.END_LOADING });
+        }, 3000);
       });
   };
 

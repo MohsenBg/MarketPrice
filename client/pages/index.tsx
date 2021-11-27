@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import PageCounters from "../components/Home/PageCounter/PageCounters";
 import { initialState } from "../redux/store";
 import Search from "../components/Home/Search/Search";
+import H_Header from "../components/Home/H_Header/H_Header";
 
 const Home: NextPage = () => {
   const [countRenderCoin, setCountRenderCoin] = useState(1);
@@ -37,9 +38,14 @@ const Home: NextPage = () => {
         {coinsInfo.length > 0 ? (
           <>
             <div>
+              <h2>Markets</h2>
+            </div>
+            <div>
+              <H_Header coins={coinsInfo} />
+            </div>
+            <div>
               <Search />
             </div>
-
             <div>
               <div>
                 <div className={styles.cardsPrice}>
