@@ -187,7 +187,7 @@ const H_Header: FunctionComponent<props> = ({ coins }) => {
               </div>
             </div>
           </Link>
-          <Link href={`/${topVolume.coinName}`}>
+          <Link href={`/${topLoser.coinName}`}>
             <div className={styles.card}>
               <h3 className={styles.title}>Top Loser</h3>
               <div className={styles.mainContent}>

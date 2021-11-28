@@ -6,7 +6,7 @@ import axios from "axios";
 import { BasicCoinsInfo } from "../../interface/I-coins";
 import { URL } from "../../URL";
 import Head from "next/head";
-import { BiArrowBack } from "react-icons/bi";
+import { BiRightArrowAlt } from "react-icons/bi";
 import styles from "../../styles/CoinsName.module.scss";
 import Header from "../../components/CoinsName/CN_Header/CN_Header";
 import PriceStatistics from "../../components/CoinsName/PriceStatistics/PriceStatistics";
@@ -37,7 +37,7 @@ const CoinsName: NextPage<props> = ({ coinInfo }) => {
       <div className={styles.mainContainer}>
         <div className={styles.iconBack}>
           <Link href={"/"}>
-            <BiArrowBack />
+            <BiRightArrowAlt />
           </Link>
         </div>
         <div>
