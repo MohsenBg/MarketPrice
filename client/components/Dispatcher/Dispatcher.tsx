@@ -12,10 +12,10 @@ const Dispatcher: FunctionComponent = () => {
     dispatch({ type: ActionTypeLoading.ON_LOADING });
   }, []);
   useEffect(() => {
-    const interval = setInterval(async () => {
-      CoinsData();
-    }, 2500);
-    return () => clearInterval(interval);
+    //const interval = setInterval(async () => {
+    CoinsData();
+    // }, 2500);
+    // return () => clearInterval(interval);
   }, []);
 
   const CoinsData = async () => {

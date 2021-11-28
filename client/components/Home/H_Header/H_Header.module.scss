@@ -14,11 +14,15 @@
       align-items: flex-start;
     }
     .card {
+      cursor: pointer;
       margin-left: 1em;
       flex-basis: 100%;
       background: rgba(107, 106, 106, 0.247);
       padding: 10px;
       border-radius: 8px;
+      &:hover {
+        background: rgba(107, 106, 106, 0.447);
+      }
       @media (width < 630px) {
         width: 100%;
         margin-left: 0;
