@@ -22,9 +22,16 @@ const Dispatcher: FunctionComponent = () => {
     await axios
       .get("https://market-amm.herokuapp.com/api/Coins/Price")
       .then(async (res) => {
-        const data: Array<CoinsInfo> = await res.data;
+         const data: Array<CoinsInfo> = await res.data;
         //@ts-ignore
-        dispatch({ type: ActionTypeCoinsData.COINS_DATA, payload: data });
+        let filterData = [];
+        data.map((coin) => {
+          if (Array.isArray(coin.price) && coin.price.length > 0) {
+            filterData.push(coin);
+          }
+        });
+        //@ts-ignore
+        dispatch({ type: ActionTypeCoinsData.COINS_DATA, payload: filterData });
       })
       .catch((error) => {
         console.log(error);
